@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,11 @@ public class AddForce : MonoBehaviour
     [SerializeField] private float force;
     
     
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -22,5 +21,10 @@ public class AddForce : MonoBehaviour
             rb.AddForce(force, 0, 0 );
         }
 
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        other.gameObject.GetComponent<Rigidbody>().AddForce(force, force, 0);
     }
 }
